@@ -1,134 +1,181 @@
 ﻿<html>
+
 <head>
-<meta charset="utf-8">
-<title>嫁给我吧</title>
-    <audio id="bgmMusic" src="http://qzone.haoduoge.com/music3/2015-02-05/1423102935.mp3" preload="auto" type="audio/mp3" autoplay loop></audio>
-<style type="text/css">
-body {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	background-color: #FF62FF;
-}
-.content {
-	width: 80%;
-	color: #90F;
-	height: 100%;
-	top: 0px;
-	left: 10%;
-	font-size: 18px;
-	line-height: 25px;
-	font-family: "微软雅黑";
-	margin-top: 0px;
-}
-body {
-	color: #FFF;
-	padding: 10px;
-	background: #ffd0d8 url(newimages/1120.jpg) no-repeat fixed top center;
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-}
-.des {
-	font-size: 15px;
-	color: #000000;
-	/*width: 100%;*/
-	text-shadow : 0px 0px 1px #fff;
-	z-index:1000;					
-	right:20px;
-	position:fixed !important;
-	bottom:0px;
-}
-.des a {
-	color: #3C3C3C;
-	text-shadow : 0px 0px 1px #fff;
-}
-</style>
-<script src="jquery-1.7.1.min.js" language="javascript" type="text/javascript"></script>
-<script src="tao.js" language="javascript" type="text/javascript"></script>
-<script>
-$(document).ready(function(e) {
-	
-	/*禁止右键和隐藏鼠标*/
-	$("body").bind("contextmenu", function() {
-      return false;
-    });
-	/*定义文字最底部显示到哪儿*/
-	
-	
-	
-	var guangs=["　","|","　","|"];
-	var guangBiao="/";
-	var guangSub=0;
-	var guang=setInterval("$.guang()",120);
-	
-	var subs=0;
-    var string="亲爱的，谢莎小可爱.爱你一生一世.";
-	$.intent=function(str){
-		str="　　"+str;
-		//var reg=new RegExp("/█{1,2}/","i"); //创建正则RegExp对象
-        str=str.replace(eval("/█/gi"),"█");
+	<meta charset="utf-8">
+	<title>嫁给我吧</title>
+	<!-- <audio id="bgMusic" loop style="display:none">
+	<source src="newimages/bg1.mp3" type="audio/mpeg">
+</audio> -->
 
-		return str;
-	}
-	string=$.intent(string);
-	
-	var echo=setInterval("$.echo()",300);
-		
-	
-	
-	$.guang=function(){
-		  if(guangSub<guangs.length-1){
-			    guangSub++;
-			  }else{
-				  guangSub=0;
-				  }
-			guangBiao=guangs[guangSub];
-			$("#guang").html(guangBiao);
-			
-		}
-	
-	$.echo=function(){
-		if(subs<string.length){
-		$("#txt").html($("#txt").html()+$.repl(string.substr(subs,1)));
-		if($("#guang").offset().top > document.body.scrollHeight / 2){
-		  window.scrollTo(0,$("#guang").offset().top);
-		}
-               $(".des").css("bottom","0px");
-		subs++;
-		}
-	}
-	$.repl=function(str){
-		str=str.replace("\r\n","<br/>");
-		str=str.replace("\n","<br/>");
-		str=str.replace("█","<br/>");
-		return str;
-		}
-});
+<!-- 
+	<video width="500" height="680" controls autoplay loop playsinline>
+		<source src="newimages/lovebg2.mp4" type="video/mp4">
+	</video> -->
 
-</script>
+	<video id="myVideo" width="500" height="690" controls autoplay loop playsinline>
+		<source src="newimages/lovebg2.mp4" type="video/mp4">
+		您的浏览器不支持 HTML5 视频
+	</video>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const music = document.getElementById('bgMusic');
+
+			// 尝试自动播放（带错误捕获）
+			const playPromise = music.play().catch(error => {
+				console.log('自动播放被阻止:', error);
+
+				// 添加用户交互激活按钮
+				const btn = document.createElement('button');
+				btn.textContent = '🔇 点击激活音乐';
+				btn.style.position = 'fixed';
+				btn.style.bottom = '20px';
+				btn.style.right = '20px';
+				document.body.appendChild(btn);
+
+				btn.addEventListener('click', () => {
+					music.play();
+					btn.remove();
+				});
+			});
+			// 处理Safari兼容
+			if (playPromise !== undefined) {
+				playPromise.catch(() => {
+					// 特殊浏览器处理
+				});
+			}
+		});
+	</script>
+	<style type="text/css">
+		body {
+			margin-left: 0px;
+			margin-top: 0px;
+			margin-right: 0px;
+			margin-bottom: 0px;
+			background-color: #FF62FF;
+		}
+
+		.content {
+			width: 80%;
+			color: #90F;
+			height: 100%;
+			top: 0px;
+			left: 10%;
+			font-size: 18px;
+			line-height: 25px;
+			font-family: "微软雅黑";
+			margin-top: 0px;
+		}
+
+		body {
+			color: #FFF;
+			padding: 10px;
+			background: #ffd0d8 url(newimages/1120.jpg) no-repeat fixed top center;
+			margin-left: 0px;
+			margin-top: 0px;
+			margin-right: 0px;
+			margin-bottom: 0px;
+		}
+
+		.des {
+			font-size: 15px;
+			color: #000000;
+			/*width: 100%;*/
+			text-shadow: 0px 0px 1px #fff;
+			z-index: 1000;
+			right: 20px;
+			position: fixed !important;
+			bottom: 0px;
+		}
+
+		.des a {
+			color: #3C3C3C;
+			text-shadow: 0px 0px 1px #fff;
+		}
+	</style>
+	<script src="jquery-1.7.1.min.js" language="javascript" type="text/javascript"></script>
+	<script src="tao.js" language="javascript" type="text/javascript"></script>
+	<script>
+		$(document).ready(function (e) {
+
+			/*禁止右键和隐藏鼠标*/
+			$("body").bind("contextmenu", function () {
+				return false;
+			});
+			/*定义文字最底部显示到哪儿*/
+
+
+
+			var guangs = ["　", "|", "　", "|"];
+			var guangBiao = "/";
+			var guangSub = 0;
+			var guang = setInterval("$.guang()", 120);
+
+			var subs = 0;
+			var string = "亲爱的，谢莎小可爱.爱你一生一世.";
+			$.intent = function (str) {
+				str = "　　" + str;
+				//var reg=new RegExp("/█{1,2}/","i"); //创建正则RegExp对象
+				str = str.replace(eval("/█/gi"), "█");
+
+				return str;
+			}
+			string = $.intent(string);
+
+			var echo = setInterval("$.echo()", 300);
+
+
+
+			$.guang = function () {
+				if (guangSub < guangs.length - 1) {
+					guangSub++;
+				} else {
+					guangSub = 0;
+				}
+				guangBiao = guangs[guangSub];
+				$("#guang").html(guangBiao);
+
+			}
+
+			$.echo = function () {
+				if (subs < string.length) {
+					$("#txt").html($("#txt").html() + $.repl(string.substr(subs, 1)));
+					if ($("#guang").offset().top > document.body.scrollHeight / 2) {
+						window.scrollTo(0, $("#guang").offset().top);
+					}
+					$(".des").css("bottom", "0px");
+					subs++;
+				}
+			}
+			$.repl = function (str) {
+				str = str.replace("\r\n", "<br/>");
+				str = str.replace("\n", "<br/>");
+				str = str.replace("█", "<br/>");
+				return str;
+			}
+		});
+
+	</script>
 </head>
 
 <center>
-<div align="left" class="content"><span  id="txt"></span><span id="guang"></span>
-<span></span>
-</div>
+	<div align="left" class="content"><span id="txt"></span><span id="guang"></span>
+		<span></span>
+	</div>
 </center>
-
 
 
 
 <!--下面是浮动的桃心-->
 <div id="bubbles" style="visibility:hidden">
-<img src="img/1.png">
-<img src="img/2.png">
-<img src="img/1.png">
+	<img src="img/1.png">
+	<img src="img/2.png">
+	<img src="img/1.png">
 </div>
 <!---->
 
 
 
 </body>
+
 </html>
